@@ -35,14 +35,14 @@ jobs:
           set -euo pipefail
           if [ -z "${APP_REPO_TOKEN:-}" ]; then
             echo "::error::no APP_REPO_TOKEN secret. It needs read access to"
-            echo "::error::soralis0912-dev/packages_apps_MtkPdInfo, which is private."
+            echo "::error::WitAqua/packages_apps_MtkPdInfo, which is private."
             exit 1
           fi
 
       - name: Check out the app
         uses: actions/checkout@v7
         with:
-          repository: soralis0912-dev/packages_apps_MtkPdInfo
+          repository: WitAqua/packages_apps_MtkPdInfo
           # Pinned because this is another repository's branch, not ours.
           ref: main
           path: app

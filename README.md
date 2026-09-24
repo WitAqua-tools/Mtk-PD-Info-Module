@@ -1,6 +1,6 @@
 # MediaTek PD Info — module
 
-Installs [MtkPdInfo](https://github.com/soralis0912-dev/packages_apps_MtkPdInfo)
+Installs [MtkPdInfo](https://github.com/WitAqua/packages_apps_MtkPdInfo)
 on a ROM that is not ours, as a module for KernelSU or Magisk.
 
 The app reads what the charger offered and which line of it the phone took. On
@@ -62,7 +62,7 @@ the way out and the rest does not survive:
 
 The app says so where it matters rather than leaving a silence. The two kernel
 changes that would fix the first two are in the app's
-[docs/kernel.md](https://github.com/soralis0912-dev/packages_apps_MtkPdInfo/blob/main/docs/kernel.md).
+[docs/kernel.md](https://github.com/WitAqua/packages_apps_MtkPdInfo/blob/main/docs/kernel.md).
 
 ## Installing
 
