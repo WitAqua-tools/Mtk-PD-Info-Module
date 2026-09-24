@@ -95,9 +95,13 @@ can drift apart. Two things follow from that:
   is nothing to build, and CI says so rather than failing on a checkout whose
   error does not name the cause.
 - **`STORE_FILE`, `STORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`.** The release
-  signing key. CI signs with `testkey.jks`, the public AOSP debug key committed
-  here, and refuses to publish anything signed with it as a release - a key
-  anybody has is a key anybody can sign an update with.
+  signing key, which lives in `WitAqua-tools/Android-Keys` under `mtk-pd-info`
+  and is already pushed to this repository's Actions secrets. The release job
+  checks the fingerprint it produces against the one recorded there, so a
+  replaced secret fails the run rather than publishing an update nothing can
+  install over. CI signs with `testkey.jks`, the public AOSP debug key
+  committed here, which a release may not use - a key anybody has is a key
+  anybody can sign an update with.
 
 Tag to release. The tag has to match `module.prop`, because `module.prop` is
 what the manager shows and `update.json` is what it fetches.

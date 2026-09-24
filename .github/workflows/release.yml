@@ -97,13 +97,10 @@ jobs:
 
       # An apk that came out unsigned would install once and then never update,
       # which is the failure worth catching before it is published rather than
-      # after. The qualcomm module pins its own release fingerprint here; this
-      # one has no key of its own yet, so the check is the one thing that can
-      # be said without it - that a release did not go out signed with the
-      # public test key, which anybody could then sign an update with.
-      #
-      # Pin the fingerprint here once there is a key. It is the check that
-      # catches the secret having been replaced with a different one.
+      # after. The fingerprint is the one recorded in WitAqua-tools/Android-Keys
+      # under mtk-pd-info; checking it catches the secret having been replaced
+      # with a different key, which would publish an update nothing can install
+      # over.
       - name: Check the signature
         run: |
           set -euo pipefail
@@ -114,13 +111,12 @@ jobs:
           apksigner=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
           "$apksigner" verify --print-certs "$apk" | tee /tmp/certs.txt
 
-          testkey=A40DA80A59D170CAA950CF15C18C454D47A39B26989D8B640ECD745BA71BF5DC
+          expected="DA7A78F99BE0F5E559D490396071DED5907AA0CA3036AAED5774638123161E51"
           got=$(sed -n 's/.*SHA-256 digest: //p' /tmp/certs.txt | head -1 | tr -d ' :' | tr 'a-f' 'A-F')
-          if [ "$got" = "$testkey" ]; then
-            echo "::error::signed with the public test key. A release may not be"
+          if [ "$got" != "$expected" ]; then
+            echo "::error::signed with the wrong key. Expected $expected, got $got"
             exit 1
           fi
-          echo "signed with $got"
 
           echo "apk=$apk" >> "$GITHUB_ENV"
 
