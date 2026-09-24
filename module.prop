@@ -1,0 +1,7 @@
+id=mtk_pd_info
+name=MediaTek PD Info
+version=v0.1.0
+versionCode=1
+author=WitAqua
+description=Installs the USB Power Delivery viewer for MediaTek boards. Root is what the viewer needs: everything it reads is labelled for the vendor's own charging service and not for an app. Read-only, and it mounts nothing.
+updateJson=https://raw.githubusercontent.com/soralis0912-dev/Mtk-PD-Info-Module/main/update.json
