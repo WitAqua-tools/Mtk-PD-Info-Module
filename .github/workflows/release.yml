@@ -53,15 +53,14 @@ jobs:
 
       # The app lives in its own repository, and is built here rather than
       # taken from a release there so that a module release is one action
-      # rather than two that can drift apart. It is private, so the checkout
-      # needs a token of its own - see ci.yml.
+      # rather than two that can drift apart.
       - name: Check out the app
         uses: actions/checkout@v7
         with:
           repository: WitAqua/packages_apps_MtkPdInfo
+          # Pinned because this is another repository's branch, not ours.
           ref: main
           path: app
-          token: ${{ secrets.APP_REPO_TOKEN }}
 
       - uses: actions/setup-java@v6
         with:

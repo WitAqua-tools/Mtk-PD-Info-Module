@@ -23,22 +23,6 @@ jobs:
 
       # Build the app the same way a release does, so that a change over there
       # which stops compiling is caught here rather than at tag time.
-      #
-      # The app repository is private, which GITHUB_TOKEN does not reach across
-      # repositories - it needs a token with read access to that one. Without
-      # it there is nothing to build, so say so rather than fail on a checkout
-      # whose error does not name the cause.
-      - name: Check for the app repository token
-        env:
-          APP_REPO_TOKEN: ${{ secrets.APP_REPO_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "${APP_REPO_TOKEN:-}" ]; then
-            echo "::error::no APP_REPO_TOKEN secret. It needs read access to"
-            echo "::error::WitAqua/packages_apps_MtkPdInfo, which is private."
-            exit 1
-          fi
-
       - name: Check out the app
         uses: actions/checkout@v7
         with:
@@ -46,7 +30,6 @@ jobs:
           # Pinned because this is another repository's branch, not ours.
           ref: main
           path: app
-          token: ${{ secrets.APP_REPO_TOKEN }}
 
       - uses: actions/setup-java@v6
         with:

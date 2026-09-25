@@ -88,12 +88,9 @@ and is what CI does - see `.github/workflows/ci.yml`.
 
 Both workflows build the app from its own repository rather than taking an apk
 from a release there, so a module release is one action rather than two that
-can drift apart. Two things follow from that:
+can drift apart. The app is public, so the checkout needs nothing of its own;
+what the release does need is the key:
 
-- **`APP_REPO_TOKEN`.** The app repository is private, and `GITHUB_TOKEN` does
-  not reach across repositories. Without a token with read access to it there
-  is nothing to build, and CI says so rather than failing on a checkout whose
-  error does not name the cause.
 - **`STORE_FILE`, `STORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`.** The release
   signing key, which lives in `WitAqua-tools/Android-Keys` under `mtk-pd-info`
   and is already pushed to this repository's Actions secrets. The release job
